@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+    <!-- 課題8 -->
+    <div class="profile">
+        <img src="../static/img/{{user_data[1]}}" alt="">
+    </div>
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="profile-form">
+        <input type="file" name="upload">
+        <input type="submit" value="アップロード">
+    </form>
+    <!-- ---- -->
+    <h2 class="page-head">{{user_data[0]}}のタスク一覧</h2>
+    <div class="list-container">
+        <div class="card-wrap">
+            <!-- DBのレコード件数分カードを追加する -->
+            {% for task in task_list %}
+            <!-- task =  {'id': 1, 'task': '入力テスト'} -->
+            <div class="card">
+                <p class="task-title">{{task["task"]}}</p>
+                <p class="task-date">{{task["datetime"]}}</p> <!-- 課題4 -->
+                <div class="icon-wrap">
+                    <a href="/edit/{{task['id']}}" class="circle"><i class="fa-solid fa-pen"></i></a>
+                    <!-- 課題5 -->
+                    <a href="/delete/{{task['id']}}" class="circle delete-btn"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- ここまで -->
+        </div>
+    </div>
+    <!-- 課題7 -->
+    <form action="/delete-account" method="POST">
+        <input class="delete-account" type="submit" value="アカウント削除">
+    </form>
+    <!-- ---- -->
+</main>
+
+{% endblock %}
